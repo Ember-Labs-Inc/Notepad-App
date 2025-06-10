@@ -1,18 +1,17 @@
-import { StyleSheet } from "react-native";
-
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { StyleSheet } from "react-native";
 
-export default function HomeScreen() {
+export default function ScheduleScreen() {
   return (
     <>
       <ThemedView style={styles.titlebar}>
-        <ThemedText type="title">Notes</ThemedText>
+        <ThemedText type="title">Schedules</ThemedText>
       </ThemedView>
       <ThemedView style={styles.container}>
-        <ThemedText type="title">Notes Screen</ThemedText>
+        <ThemedText type="title">Schedule Screen</ThemedText>
         <ThemedText type="default">
-          This is a placeholder for the Notes screen.
+          This is a placeholder for the Schedule screen.
         </ThemedText>
       </ThemedView>
     </>
@@ -22,13 +21,20 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    alignItems: "center",
   },
   titlebar: {
     width: "100%",
     paddingVertical: 0,
     paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  description: {
+    fontSize: 16,
+    marginTop: 10,
   },
 });

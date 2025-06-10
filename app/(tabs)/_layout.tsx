@@ -1,45 +1,63 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Image} from 'react-native';
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import Header from '@/components/Header';
+import { LayoutProvider } from '../../contexts/LayoutContext';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme() ?? 'light';
 
   return (
+    <LayoutProvider>
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+          tabBarActiveTintColor: Colors[colorScheme].tint,
+          headerStyle: {
+            backgroundColor: Colors[colorScheme].background,
           },
-          default: {},
-        }),
-      }}>
+          header: () => <Header />,
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTintColor: Colors[colorScheme].text,
+          tabBarStyle: {
+            backgroundColor: Colors[colorScheme].background,
+            borderColor: Colors[colorScheme].background,
+            height: 60,
+            paddingTop: 5,
+          },
+        }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <Image
+              source={require('@/assets/icons/notes.png')}
+              style={{ width: 28, height: 28, tintColor: color }}
+          />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="schedule"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <Image
+              source={require('@/assets/icons/schedule.png')}
+              style={{ width: 28, height: 28, tintColor: color }}
+          />,
         }}
       />
+      <Tabs.Screen
+        name="task"
+        options={{
+          tabBarIcon: ({ color }) => <Image
+              source={require('@/assets/icons/task.png')}
+              style={{ width: 28, height: 28, tintColor: color }}
+          />,
+        }}
+      />
+      
     </Tabs>
+    </LayoutProvider>
   );
 }
