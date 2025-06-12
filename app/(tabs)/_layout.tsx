@@ -11,7 +11,7 @@ export default function TabLayout() {
   const colorScheme = useColorScheme() ?? 'light';
 
   return (
-    <LayoutProvider>
+    <LayoutProvider> 
     <Tabs
       screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme].tint,
@@ -34,7 +34,7 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color }) => <Image
               source={require('@/assets/icons/notes.png')}
-              style={{ width: 28, height: 28, tintColor: color }}
+              style={{ width: 26, height: 26, tintColor: color }}
           />,
         }}
       />
@@ -43,7 +43,7 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color }) => <Image
               source={require('@/assets/icons/schedule.png')}
-              style={{ width: 28, height: 28, tintColor: color }}
+              style={{ width: 26, height: 26, tintColor: color }}
           />,
         }}
       />
@@ -52,12 +52,13 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color }) => <Image
               source={require('@/assets/icons/task.png')}
-              style={{ width: 28, height: 28, tintColor: color }}
+              style={{ width: 26, height: 26, tintColor: color }}
           />,
         }}
       />
       
     </Tabs>
     </LayoutProvider>
+    
   );
 }

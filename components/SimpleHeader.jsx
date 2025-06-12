@@ -1,23 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { View, StyleSheet, Image, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { ThemedText } from './ThemedText';
 
 const SimpleHeader = ({ title }) => {
   const navigation = useRouter();
+  const bgColor = useThemeColor({}, 'background');
 
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, { backgroundColor: bgColor }]}>
       <Pressable onPress={() => navigation.back()}>
         <Image source={require('@/assets/icons/arrow-left.png')} style={styles.backIcon} />
       </Pressable>
-      <Text style={styles.title}>{title}</Text>
+      <ThemedText style={styles.title}>{title}</ThemedText>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#111111',
     paddingVertical: 5,
     paddingHorizontal: 15,
     height: 60,
@@ -30,7 +32,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   title: {
-    color: '#fff',
     fontSize: 16,
   },
 });

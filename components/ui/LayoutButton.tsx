@@ -22,7 +22,7 @@ const layoutOptions = [
 const LayoutButton: React.FC<LayoutButtonProps> = ({ visible }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { layoutMode, setLayoutMode } = useLayout();
-  const modalBg = useThemeColor({}, 'background'); // get themed background
+  const modalBg = useThemeColor({}, 'modal');
   
   if (!visible) return null;
 
@@ -76,14 +76,15 @@ const styles = StyleSheet.create({
   modalContent: {
     borderRadius: 15,
     padding: 20,
+    paddingVertical: 13,
     width: '60%',
-    marginTop: '20%',
-    marginRight: 20,
+    marginTop: '25%',
+    marginRight: 15,
   },
   option: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 8,
   },
   optionIcon: {
     width: 24,
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   optionText: {
-    fontSize: 16,
+    fontSize: 14,
   },
 });
 
