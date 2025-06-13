@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   emptyState: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -117,5 +118,6 @@ const styles = StyleSheet.create({
     color: "#888",
     textAlign: "center",
     marginTop: 20,
+    width: "100%",
   },
 });
