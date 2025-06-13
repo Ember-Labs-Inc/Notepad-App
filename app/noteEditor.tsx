@@ -11,15 +11,21 @@ import {
 import { ThemedView } from "@/components/ThemedView";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import EditorOptions from "@/components/EditorOptions";
-import { useRouter, useNavigation } from "expo-router";
-import { insertNote } from "@/services/noteService";
+import { useRouter, useNavigation, useLocalSearchParams } from "expo-router";
+import { insertNote, updateNote, fetchNoteById } from "@/services/noteService";
 import EditorHeader from "@/components/EditorHeader";
+import { Note } from "@/models/Note";
 
 export default function NoteEditorScreen() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [hasChanged, setHasChanged] = useState(false);
+
+  const params = useLocalSearchParams();
+  const noteId = params.noteId ? Number(params.noteId) : null; // Get note ID from route
+  const [editingNoteId, setEditingNoteId] = useState<number | null>(null);
+  const [initialNote, setInitialNote] = useState<Note | null>(null);
 
   const themeTextColor = useThemeColor({}, "text");
   const themeBackgroundColor = useThemeColor({}, "modal");
@@ -36,24 +42,38 @@ export default function NoteEditorScreen() {
     setBody(text);
     setHasChanged(title.trim().length > 0 || text.trim().length > 0);
   }, [title]);
+
   const handleSave = useCallback(async () => {
     if (!title.trim() && !body.trim()) {
       Alert.alert("Empty Note", "Please enter a title or content.");
       return;
     }
+
     const now = new Date().toISOString();
+    
     try {
-      await insertNote({
-        title: title.trim(),
-        content: body.trim(),
-        createdAt: now,
-        updatedAt: now,
-      });
-      navigation.goBack(); // Go back after saving
+      if (editingNoteId && initialNote) {
+        // Update existing note
+        await updateNote({
+          ...initialNote,
+          title: title.trim(),
+          content: body.trim(),
+          updatedAt: now,
+        });
+      } else {
+        // Create new note
+        await insertNote({
+          title: title.trim(),
+          content: body.trim(),
+          createdAt: now,
+          updatedAt: now,
+        });
+      }
+      navigation.goBack();
     } catch {
       Alert.alert("Error", "Failed to save note.");
     }
-  }, [title, body, navigation]);
+  }, [title, body, navigation, editingNoteId, initialNote]);
   
 
 
@@ -82,6 +102,22 @@ export default function NoteEditorScreen() {
       ),
     });
   }, [hasChanged, handleSave, navigation]);
+
+  useEffect(() => {
+    const loadNote = async () => {
+      if (noteId) {
+        const note = await fetchNoteById(noteId);
+        if (note) {
+          setTitle(note.title || "");
+          setBody(note.content || "");
+          setEditingNoteId(note.id ?? null);
+          setInitialNote(note);
+        }
+      }
+    };
+
+    loadNote();
+  }, [noteId]);
 
 
   
@@ -115,7 +151,7 @@ export default function NoteEditorScreen() {
 
       </KeyboardAvoidingView>
 
-      {/* Editor Options Floating Bar - Positioned relative to keyboard */}
+      
       <View style={[
         styles.editorOptions, 
         { 

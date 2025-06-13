@@ -23,7 +23,37 @@ export const fetchNotes = async (): Promise<Note[]> => {
   return notes;
 };
 
+export const fetchNoteById = async (id: number): Promise<Note | null> => {
+  const db = await getDB();
+  const note = await db.getFirstAsync<Note>(
+    `SELECT * FROM notes WHERE id = ?`,
+    [id]
+  );
+  return note;
+};
+
 export const deleteNote = async (id: number) => {
   const db = await getDB();
   await db.runAsync(`DELETE FROM notes WHERE id = ?`, [id]);
 };
+
+
+export const updateNote = async (note: Note) => {
+  if (!note.id) throw new Error('Note ID is required for updating.');
+
+  const db = await getDB();
+  await db.runAsync(
+    `UPDATE notes 
+     SET title = ?, content = ?, imageUri = ?, audioUri = ?, updatedAt = ?
+     WHERE id = ?`,
+    [
+      note.title ?? null,
+      note.content ?? null,
+      note.imageUri ?? null, 
+      note.audioUri ?? null,  
+      note.updatedAt ?? new Date().toISOString(),
+      note.id
+    ]
+  );
+};
+

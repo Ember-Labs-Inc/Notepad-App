@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 20,
     paddingVertical: 13,
-    width: '60%',
+    width: '50%',
     marginTop: '25%',
     marginRight: 15,
   },
   option: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 12,
   },
   optionIcon: {
     width: 24,
