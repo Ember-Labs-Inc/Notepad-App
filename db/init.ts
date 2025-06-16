@@ -21,5 +21,14 @@ export const initDB = async () => {
       time TEXT,
       completed INTEGER
     );
+
+    CREATE TABLE IF NOT EXISTS schedules (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT,
+      description TEXT,
+      date TEXT,
+      time TEXT,
+      completed INTEGER
+    );
   `);
 };

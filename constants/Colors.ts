@@ -10,6 +10,8 @@ export const Colors = {
   light: {
     text: '#11181C',
     background: '#fff',
+    placeholder: '#888888',
+    checkBg: '#313131',
     defaultNote: '#F5F5F5',
     modal: '#F5F5F5',
     addButton: '#F5F5F5',
@@ -21,6 +23,8 @@ export const Colors = {
   dark: {
     text: '#ECEDEE',
     background: '#121212',
+    placeholder: '#888888',
+    checkBg: '#313131',
     defaultNote: '#1E1E1E',
     modal: '#1E1E1E',
     addButton: '#1E1E1E',

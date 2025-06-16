@@ -49,21 +49,21 @@ export default function RootLayout() {
             name="noteEditor"
             options={{
               headerShown: true,
-              header: () => <EditorHeader title="Notes" />,
+              header: () => <EditorHeader title="Create Note" showSave={undefined} onSave={undefined} />,
             }}
           />
           <Stack.Screen
             name="scheduleEditor"
             options={{
               headerShown: true,
-              header: () => <EditorHeader title="Schedule" />,
+              header: () => <EditorHeader title="Create Schedule" showSave={undefined} onSave={undefined} />,
             }}
           />
           <Stack.Screen
             name="taskEditor"
             options={{
               headerShown: true,
-              header: () => <EditorHeader title="Task" />,
+              header: () => <EditorHeader title="Create Task" showSave={undefined} onSave={undefined} />,
             }}
           />
           <Stack.Screen name="+not-found" />
